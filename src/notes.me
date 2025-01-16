@@ -1,0 +1,75 @@
+const user = {
+ firstName: "John",
+ lastName: 
+ "Doe",
+}
+const items = [
+  {
+    name: "Fruits",
+    subItems: ["Apple", "Banana", "Orange"],
+  },
+  {
+    name: "Vegetables",
+    subItems: ["Carrot", "Broccoli", "Spinach"],
+  },
+  {
+    name: "Dairy",
+    subItems: ["Milk", "Cheese", "Yogurt"],
+  },
+];
+function App() {
+return (
+<div>
+<h1>Rock-Paper-Scissors Game</h1>
+<p className="instructions">Choose Rock, Paper, or Scissors to
+play against the computer!</p>
+<div id="scoreboard">
+<p>Player Score: <span id="player-score">0</span></p>
+<p>Computer Score: <span id="computer-score">0</span></p>
+</div>
+<div className="choices">
+<button id="rock">Rock</button>
+<button id="paper">Paper</button>
+<button id="scissors">Scissors</button>
+</div>
+<div id="result">
+<p></p>
+
+
+
+const App = () => {
+
+return (
+<>
+<div>
+  <h1>Introduction to React</h1>
+</div>
+<div>
+  <ul>
+    {items.map((item, index) => (
+      <li key = {index}>{item}</li>
+    ))}
+    <li>{items[0]}</li>
+  </ul>
+  <ul>
+  {items.map((item, index) => (
+    <li key={index}>
+      {item.name}
+      {(
+        <ul>
+          {item.subItems.map((subItem, subIndex) => (
+            <li key={subIndex}>{subItem}</li>
+          ))}
+        </ul>
+      )}
+    </li>
+  ))}
+</ul>
+  <p>Hello and welcome to this page, {user.firstName} {user.lastName}</p>
+</div>
+<label htmlFor = "email"> Email: </label>
+<input id = "email" />
+</>
+); 
+  
+}; 
