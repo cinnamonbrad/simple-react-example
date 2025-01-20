@@ -1,20 +1,10 @@
-import { useState } from 'react'
-// import Greeting from "./Greeting";
+import { useState } from 'react';
 
 const Header = ({title, instruction}) => {
   return (
     <div>
       <h1>{title}</h1>
       <p className="instructions">{instruction}</p>
-    </div>
-  );
-};
-
-const Scoreboard = ({playerScore, computerScore, winner}) => {
-  return (
-    <div id="scoreboard">
-      <p>Player Score: <span id="player-score">{playerScore} {winner ==="Player" ? "Winner!" : ""} </span></p>
-      <p>Computer Score: <span id="computer-score">{computerScore} {winner ==="Computer" ? "Winner!" : ""}</span></p>
     </div>
   );
 };
@@ -45,11 +35,11 @@ const Result = ({result}) => {
 
 
   
-const RockPaperScissors = () => {
+const RockPaperScissors = ({updateScores, onSetGameResult }) => {
 
   const choices = [
     { name: 'Rock', icon: '✊' },
-    { name: 'Paper', icon: '✋' },
+    { name: 'Paper', icon: '✋' }, 
     { name: 'Scissors', icon: '✌️' },
   ];
   const [result, setResult] = useState(null);
@@ -77,11 +67,15 @@ const RockPaperScissors = () => {
       (playerChoice === "Scissors" && computerChoice === "Paper")
     ) {
       setPlayerScore(playerScore + 1); 
+      updateScores("Player");
       setWinner("Player");
+      onSetGameResult("You win!")
       return "You win!";
     }
       setComputerScore(computerScore + 1); 
       setWinner("Computer");
+      updateScores("Computer"); 
+      onSetGameResult("You lose!")
       return "Computer wins!";
   };
   const handlePlayerChoice = (playerChoice) => {
@@ -89,11 +83,18 @@ const RockPaperScissors = () => {
     const gameResult = determineWinner(playerChoice.name, computerChoice);
     console.log(`Player chose: ${playerChoice.name}`);
     console.log(`Computer chose: ${computerChoice}`);
+  
     setResult({
       player: `Player chose: ${playerChoice.name}`,
       computer: `Computer chose: ${computerChoice}`,
       outcome: gameResult}
     );
+    const onSetGameResult = (result) => {
+      setResult(result); 
+    };
+
+    onSetGameResult(`Player chose: ${playerChoice.name}, Computer chose: ${computerChoice}, ${gameResult}`); 
+ 
     console.log(result);
   };
   
@@ -104,10 +105,9 @@ const RockPaperScissors = () => {
           title = "Rock-Paper-Scissors Game"
           instruction = "Choose Rock, Paper, or Scissors to play against the computer!"
       />
-      <Scoreboard playerScore = {playerScore} computerScore = {computerScore} winner ={winner}/>
+      {/* <Scoreboard playerScore = {playerScore} computerScore = {computerScore} winner ={winner}/> */}
       <Choices choices = {choices} onPlayerChoice = {handlePlayerChoice}/>
       <Result result = {result}/>
-      <button id="reset">Reset Game</button>
     </div>
 );
     
