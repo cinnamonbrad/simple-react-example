@@ -25,7 +25,8 @@ const HigherOrLower = ({updateScores, onSetGameResult}) => {
         onSetGameResult("You guessed incorrect!");
     }
        
- setCurrentNumber(newNumber);}
+        setCurrentNumber(newNumber);
+}
     return (
     <div>
     <h1>Higher or Lower</h1>

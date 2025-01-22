@@ -238,46 +238,48 @@ const GuessedWord =({guessedWord}) => {
 
 
 // Main Hangman game component.
-const Hangman = () => {
+const Hangman = ({updateScores, onSetGameResult}) => {
     const [secretWord, setSecretWord] = useState(randomSecretWord()); // is array for the secret word
     const [guessedWord, setGuessedWord] = useState(new Array(secretWord.length).fill('-')); //is the array for letters guessed by player
     let wrongCount = 0;
     // Resets the game to start over with a new word.
     const resetGame = () => {
-         //set a new guessedWord
-        const newSecretWord = randomSecretWord();
-        setGuessedWord(new Array(secretWord.length).fill('-')); 
-        
-    };
-
+        // Set a new secret word
+        const newSecretWord = randomSecretWord(); 
+      
+        // Update the state with both the new secret word and the initial guessedWord 
+        setSecretWord(newSecretWord); 
+        setGuessedWord(new Array(newSecretWord.length).fill('-')); 
+      };
     // Handles letter clicks and updates the guessed word or wrong count.
     const handleClick = (event) => {
         const guessedLetter = event.target.value.toLowerCase();
         console.log(guessedLetter);
         console.log(secretWord);
         console.log(guessedWord);
+
+
         if (secretWord.includes(guessedLetter)) {
-            setGuessedWord((prevGuessedWord) => 
-              prevGuessedWord.map((letter, index) => 
-                secretWord[index] === guessedLetter ? guessedLetter : letter 
-              )
-            ); 
-          } else {
+          setGuessedWord((prevGuessedWord) => 
+            prevGuessedWord.map((letter, index) => 
+              secretWord[index] === guessedLetter ? guessedLetter : letter 
+            )
+          ); 
+        
+        } else {
             wrongCount = wrongCount + 1; 
-            if (wrongCount > 5) { 
-              // Display "You unsuccessfullly guessed 5 times..." only after 5 wrong guesses
-                
-               <div id="result">
-                  You unsuccessfullly guessed 5 times. Your man has been hung! 
-                  The word was {secretWord}!
-                </div>
-            }
-          }
+            if (wrongCount === 5)
+                {
+                    onSetGameResult("Game Over. You guessed unsuccessfully 5 times so your man was hung! "); 
+                }
             // Track the number of wrong guesses:
             // - Increment the wrongCount state whenever the guessed letter is not in the secretWord.
             // - If the wrongCount reaches 5 or more, display a message indicating that the player has lost the game.
         }
+        if (secretWord === guessedWord){
+            onSetGameResult ("You win!"); 
 
+          }
     };
 
     return(
@@ -291,7 +293,7 @@ const Hangman = () => {
 
         </div>
     )
-
+};
 
 
 export default Hangman;

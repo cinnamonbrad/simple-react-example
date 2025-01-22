@@ -6,6 +6,7 @@ import GameSelector from './components/GameSelector';
 import Scoreboard from './components/Scoreboard';
 import Result from './components/Results'; 
 import Hangman from './games/Hangman';
+import TriviaGame from './games/TriviaGame';
 
 const App = () => {
   const [selectedGame, setSelectedGame] = useState(null); 
@@ -43,6 +44,7 @@ const reset = () => {
       {selectedGame === "HigherOrLower" && <HigherOrLower updateScores={updateScores} onSetGameResult = {setGameResult}/>}
       {selectedGame === "Hangman" && <Hangman updateScores={updateScores} onSetGameResult = {setGameResult}/>}
       <button onClick={reset} id = "resetbtn">Reset</button>
+      {selectedGame === "TriviaGame" && <TriviaGame updateScores = {updateScores} />}
     </div>
   ); 
  }
